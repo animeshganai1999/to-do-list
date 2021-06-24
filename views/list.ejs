@@ -1,0 +1,38 @@
+
+<%- include('header'); -%>
+
+    <div class="box" id="heading">
+      <h1><%= listTitle %></h1>
+    </div>
+
+
+    <div class="box">
+    <ul>
+<!-- whenever you added a new list item ehis will be added to the list -->
+      
+     <% newListItems.forEach(function(item){  %>
+      <!-- we are use this form so that we can submit it when we want to delete the item -->
+      <form action="/delete" method="POST">
+        <div class = "item">
+          <!-- whenever we checked on the checkbox then js call submit() to submit this form -->
+          <input type="checkbox" name="checkbox" value="<%=item._id%>" onchange="this.form.submit()">
+          <p><%= item.name %> </p>
+        </div>
+        <!-- we are using the below <input> beacuse when we checked into the checkbox we have to delete items from our specific route
+        so to this we used this so can we pass the value of "listTitle" by checking our checkbox
+        we have set our input type="hidden" so this input box is not visible and user can not modify it on the fly, we are using this just to 
+        pass the value of listTitle-->
+        <input type="hidden" name="listName" value = <%= listTitle %>>
+      </form>
+      <% }) %>
+
+      
+      <form action="/" method="POST" class="item">
+        <input type="text" name="newItem" placeholder="New Item" autocomplete="off"/>
+        <button type="submit" name="list" value=<%= listTitle %>>+</button>
+      </form>
+
+    </ul>
+  </div>
+    
+  <%- include('footer'); -%>
